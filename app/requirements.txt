@@ -1,3 +1,4 @@
 google-cloud==0.34.0
 pandas==1.2.3
 schedule==1.0.0
+requests==2.25.1

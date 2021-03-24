@@ -132,3 +132,5 @@ dmypy.json
 .terraform
 variables.tfvars
 gcp-auth.json
+docker_fixing.sh
+test.sh

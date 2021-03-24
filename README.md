@@ -27,6 +27,7 @@ cp .env-sample .env
 
 4. To test the code locally, just use Docker to start:
 ``` bash
+cd app/
 docker build -t gcp-data-lake-analytics/etl:1.0 .
 ```
 
