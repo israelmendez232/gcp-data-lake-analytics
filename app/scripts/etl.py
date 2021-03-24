@@ -46,7 +46,7 @@ def analytics_zone(pair: str, df: pd.DataFrame, file_name: str):
 def main():
     for pair in pairs:
         pair.lower()
-        file_name = f'{pair}_{partition}' # TODO: add the partition here.
+        file_name = f'{pair}_{time}_{partition}' # TODO: add the partition here.
         response = raw_zone(time, pair, limit, file_name)
         df = trusted_zone(pair, response, file_name)
         analytics_zone(pair, df, file_name)
