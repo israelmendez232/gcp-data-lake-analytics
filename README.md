@@ -27,14 +27,19 @@ cp .env-sample .env
 
 4. To test the code locally, just use Docker to start:
 ``` bash
-docker image 
+docker build -t pulkit/scriptname:1.0 .
+```
+
+4. Run the image:
+``` bash
+docker run -ti --name capturing pulkit/capturing:1.0
 ```
 
 ## 2. Main Architecture
 Here is the diagram to visualize:
 ![Main Architecture](images/main_architecture.png)
 
-The solutions:
+The stack:
 1. **Public API:** collect data using a financial API, because of the frequency of the data to be quite high in this market. Specially on crypto. Also choosed the [Bitfinex API v2](https://docs.bitfinex.com/docs/introduction) because they have a good documentation and to collect the main data doesn't need to be authenticated;
 2. **ETL:** decided to use Python with [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine?hl=pt-br) to store the code;
 3. **Data Lake:** using [Cloud Storage](https://cloud.google.com/storage?hl=pt-br) to save encoded [.parquet](https://cloud.google.com/bigquery/docs/loading-data-cloud-storage-parquet?hl=pt-br#:~:text=Parquet%20%C3%A9%20um%20formato%20de,%2C%20bem%20como%20substitu%C3%AD%2Dlas.) files as structured data;
@@ -45,13 +50,14 @@ The solutions:
 ## 3. ETL, Data Lake and Data Warehouse
 
 ### 3.1 ETL
-The code is on `./app` folder. It's ran on:
+The code is on `./app` folder ([here](https://github.com/israelmendez232/gcp-data-lake-analytics/tree/main/app)). It's ran on:
 - **Docker:** to configure the envoiroment and to run the code with the dev cloud resources to test it;
 - **ETL:** which is separated in each zone;
   - `raw_zone`: Code that collects the JSON from the [Bitfinex API v2](https://docs.bitfinex.com/docs/introduction) and saves on [Cloud Storage](https://cloud.google.com/storage?hl=pt-br);
   - `trusted_zone`: Transform the JSON on a structured format and saves on [Cloud Storage](https://cloud.google.com/storage?hl=pt-br), in .parquet. Partitioning by day;
   - `analytics_zone`: Collects the last partition on `trusted` and run a few technical analysis calculations by each data to provide a more analytical view.
 
+The code runs each 5 minutes, to extract the data and make the transformations.
 ### 3.2 Data Lake
 The objective here is to divide the data lake in zones to avoid repeating code and provide a better envoiroment for data quality. 
 1. **Raw:** Receive the raw data, such as .json or .csv - No transformation and neighter a partition now
