@@ -51,11 +51,11 @@ The objective here is to divide the data lake in zones to avoid repeating code a
 1. **Analytics:** Get the data in trusted, run all the complex aggregations and main tables, without the need for partitioning, for consumption of the final user.
 
 Here is a table to explain better:
-| Zones     | File              | Partition | Source                |
-|-----------|-------------------|-----------|-----------------------|
-| Raw       | .json/.csv/others | No        | System of Record      |
-| Trusted   | .parquet          | Yes       | Raw                   |
-| Analytics | .parquet          | No        | Trusted + Custom Code |
+| **Zones** | **File**          | **Partition** | **Source**            |
+|-----------|-------------------|---------------|-----------------------|
+| Raw       | .json/.csv/others | No            | System of Record      |
+| Trusted   | .parquet          | Yes           | Raw                   |
+| Analytics | .parquet          | No            | Trusted + Custom Code |
 
 ### 3.3 Data Warehouse
 The point here is to show all the layers 
