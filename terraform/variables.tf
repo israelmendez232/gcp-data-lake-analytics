@@ -1,13 +1,21 @@
-locals {
-  region = "asia-southeast1"
-  unique_id = "cloud-iac"
-  billing_id = ""
-  environment = "dev"
+variable "region" {
+  description = "Region for the GCP services."
+  type        = string
+  default     = "asia-southeast1" # DEV Env
 }
 
+variable "billing_id" {
+  description = "ID to bill the services."
+  type        = string
+}
 
-| **Zones** | **File**          | **Partition** | **Source**            |
-|-----------|-------------------|---------------|-----------------------|
-| Raw       | .json/.csv/others | No            | System of Record      |
-| Trusted   | .parquet          | Yes           | Raw                   |
-| Analytics | .parquet          | No            | Trusted + Custom Code |
+variable "environment" {
+  description = "The type of environment using, such as being staged (dev) or in production."
+  type        = string
+  default     = "dev" # DEV Env
+}
+
+variable "email" {
+  description = "Email of the respectible owner of the services."
+  type        = string
+}

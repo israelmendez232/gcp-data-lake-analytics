@@ -1,0 +1,4 @@
+region = "asia-southeast1"
+billing_id = ""
+environment = "dev"
+email = "test@gmail.com"

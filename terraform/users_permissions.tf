@@ -5,10 +5,10 @@ module "project_iam_binding" {
   mode     = "additive"
   bindings = {
     # Bigquery 
-    "roles/bigquery.admin" = ["user:${local.unique_id}-de@gmail.com"]
+    "roles/bigquery.admin" = ["user:${var.unique_id}-de@gmail.com"]
     # GCS
-    "roles/storage.admin" = ["user:${local.unique_id}-de@gmail.com"]
+    "roles/storage.admin" = ["user:${var.unique_id}-de@gmail.com"]
     # Compute
-    "roles/compute.admin" = ["user:${local.unique_id}-de@gmail.com"]
+    "roles/compute.admin" = ["user:${var.unique_id}-de@gmail.com"]
   }
 }
