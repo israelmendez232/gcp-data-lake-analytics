@@ -29,7 +29,7 @@ def send_data(data, file_format: str, zone: str, file_name: str):
 
     # Connect to the bucket
     storage_client = storage.Client()
-    bucket_name = env.bucket_name
+    bucket_name = os.environ['bucket_name']
     bucket = storage_client.bucket(bucket_name)
 
     # Upload the file

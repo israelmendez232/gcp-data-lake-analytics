@@ -27,12 +27,12 @@ cp .env-sample .env
 
 4. To test the code locally, just use Docker to start:
 ``` bash
-docker build -t pulkit/scriptname:1.0 .
+docker build -t gcp-data-lake-analytics/etl:1.0 .
 ```
 
 4. Run the image:
 ``` bash
-docker run -ti --name capturing pulkit/capturing:1.0
+docker run --env-file .env gcp-data-lake-analytics/etl:1.0
 ```
 
 ## 2. Main Architecture

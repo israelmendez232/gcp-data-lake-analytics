@@ -1,13 +1,16 @@
 import requests
 import pandas as pd
+import schedule 
+import time 
+import os
 
 from save_storage import send_data
 from coins import pairs
 
-url = "https://api-pub.bitfinex.com/v2" # TODO: save on .env
+def raw_zone(timeframe: str, pair: str, limit: str, file_name: str):
+    url = os.environ['url_api']
 
-def raw_zone(time: str, pair: str, limit: str, file_name: str):
-    path_historical_data = f"/candles/trade:{time}:t{pair}/hist?limit={limit}" # TODO: modify the timeframe as .env variables
+    path_historical_data = f"/candles/trade:{timeframe}:t{pair}/hist?limit={limit}" # TODO: modify the timeframe as .env variables
     response = requests.request("GET", url + path_historical_data)
     response = response.json()
 
@@ -45,12 +48,14 @@ def analytics_zone(pair: str, df: pd.DataFrame, file_name: str):
     send_data(df, file_format, zone, file_name)
 
 def main():
+    timeframe = os.environ['timeframe']
+
     for pair in pairs:
         pair.lower()
-        file_name = f'{pair}_{time}'
+        file_name = f'{pair}_{timeframe}'
         file_name.lower()
 
-        response = raw_zone(time, pair, limit, file_name)
+        response = raw_zone(timeframe, pair, limit, file_name)
         df = trusted_zone(pair, response, file_name)
         analytics_zone(pair, df, file_name)
 
