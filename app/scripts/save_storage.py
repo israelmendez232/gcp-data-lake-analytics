@@ -5,6 +5,21 @@ import glob
 import os
 
 def save_files_tmp(data, file_format: str, file_name: str):
+    """
+    # SAVE FILES ON TEMPORARY
+
+    Save files on `./tmp` to upload more easily into the storage.
+
+    Parameters
+    ----------
+    data
+        The information to be saved on the storage.
+    file_format : str
+        The type of the format that will define the process for saving and/or encoding. Such as `parquet` or `json`.
+    zone : str
+        The zone that will be saved the data, such as `raw`, `trusted` and `analytics`.
+    """
+    
     if file_format == 'parquet':
         args = {'coerce_timestamps':'ms','allow_truncated_timestamps':True}   
         file_path_tmp = f'./tmp/{file_name}.parquet'
@@ -21,13 +36,52 @@ def save_files_tmp(data, file_format: str, file_name: str):
 
 def delete_files_tmp():
     """
+    # DELETE FILES ON TEMPORARY
+
     Delete files in tmp folder to avoid unnecessary files locally.
     """
+
     files = glob.glob('./tmp/*')
     for f in files:
         os.remove(f)
 
+def add_tables_data_warehouse(table_name: str, zone: str):
+    """
+    # ADD TABLES ON DATA WAREHOUSE
+
+    Main function to save the data into the storage and create table into data warehouse.
+
+    Parameters
+    ----------
+    data
+        The information to be saved on the storage.
+    file_format : str
+        The type of the format that will define the process for saving and/or encoding. Such as `parquet` or `json`.
+    zone : str
+        The zone that will be saved the data, such as `raw`, `trusted` and `analytics`.
+    table : str
+        The table name that will be used to save into the storage and data warehouse.
+    """
+    return 1
+
 def send_data(data, file_format: str, zone: str, table: str):
+    """
+    # SEND DATA TO STORAGE
+
+    Main function to save the data into the storage and create table into data warehouse.
+
+    Parameters
+    ----------
+    data
+        The information to be saved on the storage.
+    file_format : str
+        The type of the format that will define the process for saving and/or encoding. Such as `parquet` or `json`.
+    zone : str
+        The zone that will be saved the data, such as `raw`, `trusted` and `analytics`.
+    table : str
+        The table name that will be used to save into the storage and data warehouse.
+    """
+
     # Setting the partitions
     now = datetime.now()
     year = now.strftime("%Y")
