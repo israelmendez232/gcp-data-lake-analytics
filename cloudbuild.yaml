@@ -11,5 +11,5 @@ steps:
   - run
   - --filename=app/aplication.yaml
   - --image=gcr.io/gcp-data-lake-analytics/etl:1.0
-  - --location="asia-southeast1"
+  - --location="europe-west3"
   - --cluster=autopilot-cluster-1

@@ -1,4 +1,4 @@
-region = "asia-southeast1"
+region = "europe-west3"
 billing_id = ""
 environment = "dev"
 email_admin = "test@gmail.com"

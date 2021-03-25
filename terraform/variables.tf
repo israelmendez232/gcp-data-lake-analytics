@@ -1,7 +1,7 @@
 variable "region" {
   description = "Region for the GCP services."
   type        = string
-  default     = "asia-southeast1" # DEV Env
+  default     = "europe-west3" # DEV Env
 }
 
 variable "billing_id" {
