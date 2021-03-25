@@ -1,4 +1,6 @@
-google-cloud==0.34.0
+google-cloud-storage==1.36.2
 pandas==1.2.3
 schedule==1.0.0
 requests==2.25.1
+pyarrow==3.0.0
+ta==0.7.0

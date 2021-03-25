@@ -18,21 +18,18 @@ git clone https://github.com/israelmendez232/gcp-data-lake-analytics.git
 cd ./gcp-data-lake-analytics/
 ```
 
-2. Clone and change the name of the `.env-sample` file:
+2. Clone and change the name of the files: `.env` and `variables.tfvars` 
 ``` bash
-cp .env-sample .env
+cp ./app/.env-sample ./app/.env
+cp ./terraform/variables.tfvars.sample ./terraform/variables.tfvars
 ```
 
-3. Modify the `.env` file to have all the credentations needed.
+3. Modify the `.env` and `variables.tfvars` files to have all the credentations needed. Specially the `/scripts/auth/gcp-auth.json` file for the credentials to modify Cloud Storage. Official documentation of Google [here](https://cloud.google.com/storage/docs/reference/libraries).
 
-4. To test the code locally, just use Docker to start:
+4. To test the ETL locally, just use Docker to start and run the contatiner:
 ``` bash
 cd app/
 docker build -t gcp-data-lake-analytics/etl:1.0 .
-```
-
-4. Run the image:
-``` bash
 docker run --env-file .env gcp-data-lake-analytics/etl:1.0
 ```
 
@@ -59,6 +56,7 @@ The code is on `./app` folder ([here](https://github.com/israelmendez232/gcp-dat
   - `analytics_zone`: Collects the last partition on `trusted` and run a few technical analysis calculations by each data to provide a more analytical view.
 
 The code runs each 5 minutes, to extract the data and make the transformations.
+
 ### 3.2 Data Lake
 The objective here is to divide the data lake in zones to avoid repeating code and provide a better envoiroment for data quality. 
 1. **Raw:** Receive the raw data, such as .json or .csv - No transformation and neighter a partition now

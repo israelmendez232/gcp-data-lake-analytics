@@ -1,11 +1,14 @@
 from google.cloud import storage
+from datetime import datetime
+import json
 import glob
 import os
 
-def save_files_tmp(data, file_format, file_name):
+def save_files_tmp(data, file_format: str, file_name: str):
     if file_format == 'parquet':
+        args = {'coerce_timestamps':'ms','allow_truncated_timestamps':True}   
         file_path_tmp = f'./tmp/{file_name}.parquet'
-        df.to_parquet(file_path_tmp)
+        data.to_parquet(file_path_tmp, engine='pyarrow', index=False, **args)
     elif file_format == 'json':
         file_path_tmp = f'./tmp/{file_name}.json'
         with open(file_path_tmp, 'w') as file:
@@ -24,7 +27,18 @@ def delete_files_tmp():
     for f in files:
         os.remove(f)
 
-def send_data(data, file_format: str, zone: str, file_name: str):
+def send_data(data, file_format: str, zone: str, table: str):
+    # Setting the partitions
+    now = datetime.now()
+    year = now.strftime("%Y")
+    month = now.strftime("%m")
+    day = now.strftime("%d")
+    refdate = now.strftime("%Y%m%d")
+    time = now.strftime("%H%M%S")
+
+    file_name = f'{table}_{refdate}_{time}'
+    file_name = file_name.lower()
+
     file_path_tmp = save_files_tmp(data, file_format, file_name)
 
     # Connect to the bucket
@@ -32,10 +46,9 @@ def send_data(data, file_format: str, zone: str, file_name: str):
     bucket_name = os.environ['bucket_name']
     bucket = storage_client.bucket(bucket_name)
 
-    # Upload the file
-    path_file = f"{sample_bucket_path}/pmonth={}/pweek={}/pday={}/{file_name}"
+    path_file = f"{zone}/{table}/pyear={year}/pmonth={month}/pday={day}/prefdate={refdate}/{file_name}"
     file_storage = bucket.blob(path_file)
     file_storage.upload_from_filename(file_path_tmp)
 
     delete_files_tmp()
-    print(f"===> Saving the data on `{zone}` zone the file: `{file_name}`")
+    print(f"===> Saving the data on `{zone}` zone the table `{table}` of the file `{file_name}`.")
