@@ -51,3 +51,4 @@ resource "google_bigquery_dataset" "data_warehouse" {
     role          = "essencial"
   }
 }
+
