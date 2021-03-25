@@ -1,4 +1,7 @@
 region = "asia-southeast1"
 billing_id = ""
 environment = "dev"
-email = "test@gmail.com"
+email_admin = "test@gmail.com"
+email_advanced = "test@gmail.com"
+email_essencial = "test@gmail.com"
+project_name = "Data Lake"

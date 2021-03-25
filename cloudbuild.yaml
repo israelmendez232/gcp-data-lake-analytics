@@ -1,0 +1,15 @@
+steps:
+  # build the container image
+- name: "gcr.io/cloud-builders/docker"
+  args: ["build", "-t", "gcr.io/gcp-data-lake-analytics/etl:1.0", "."]
+  # push container image
+- name: "gcr.io/cloud-builders/docker"
+  args: ["push", "gcr.io/gcp-data-lake-analytics/etl:1.0"]
+  # deploy container image to GKE
+- name: "gcr.io/cloud-builders/gke-deploy"
+  args:
+  - run
+  - --filename=app/aplication.yaml
+  - --image=gcr.io/gcp-data-lake-analytics/etl:1.0
+  - --location="asia-southeast1"
+  - --cluster=autopilot-cluster-1

@@ -33,6 +33,15 @@ docker build -t gcp-data-lake-analytics/etl:1.0 .
 docker run --env-file .env gcp-data-lake-analytics/etl:1.0
 ```
 
+5. To test the infrastructure, you need to install first Terraform. After that, you can start here:
+``` bash
+cd terraform/
+terraform init
+terraform plan
+terraform apply
+terraform destroy
+```
+
 ## 2. Main Architecture
 Here is the diagram to visualize:
 ![Main Architecture](images/main_architecture.png)

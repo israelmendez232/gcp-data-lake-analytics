@@ -15,7 +15,22 @@ variable "environment" {
   default     = "dev" # DEV Env
 }
 
-variable "email" {
-  description = "Email of the respectible owner of the services."
+variable "email_admin" {
+  description = "Email for 'admin' role, on BigQuery and others services."
+  type        = string
+}
+
+variable "email_advanced" {
+  description = "Email for 'advanced' role, on BigQuery."
+  type        = string
+}
+
+variable "email_essencial" {
+  description = "Email for 'essencial' role, on BigQuery."
+  type        = string
+}
+
+variable "project_name" {
+  description = "Name of the project."
   type        = string
 }
