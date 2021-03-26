@@ -1,3 +1,9 @@
+variable "id" {
+  description = "Generate a random UUID id to adjust the services names."
+  type        = string
+  default     = "132c6d70b4a8" # DEV Env
+}
+
 variable "region" {
   description = "Region for the GCP services."
   type        = string

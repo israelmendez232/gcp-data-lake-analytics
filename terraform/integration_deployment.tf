@@ -1,25 +1,27 @@
-resource "google_cloudbuild_trigger" "filename-trigger" {
-  name = "gcp-data-lake-analytics"
-  tags = ["etl"]
-  filename = "cloudbuild.yaml"
+resource "google_cloudbuild_trigger" "gcp-data-lake-analytics-etl" {
+  name          = "gcp-data-lake-analytics"
+  tags          = ["etl"]
+  filename      = "cloudbuild.yaml"
 
   github {
-    name   = "gcp-data-lake-analytics"
-    dir = "/app"
+    dir         = "/app"
     branch_name = "main"
+    owner       = "israelmendez232"
+    name        = "gcp-data-lake-analytics" 
+
   }
 
   pull_request {
-      branch = "main"
+      branch    = "main"
   }
 
   repo_source {
-    repo_name = "gcp-data-lake-analytics"
-    dir = "/app"
+    repo_name   = "gcp-data-lake-analytics"
+    dir         = "/app"
   }
 
   step {
-      name = "gcp-data-lake-analytics-etl"
+      name      = "gcp-data-lake-analytics-etl"
   }
 
   options {
