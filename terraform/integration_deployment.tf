@@ -1,10 +1,13 @@
 resource "google_cloudbuild_trigger" "gcp-data-lake-analytics-etl" {
-    github {
-        dir         = "/app"
-        branch_name = "main"
-        owner       = "israelmendez232"
-        name        = var.project_prefix
-    }
+  provider    = google-beta
+  description = "Build for the ETL code on GKE"
+  filename = "cloudbuild.yaml"
 
-  filename          = "cloudbuild.yaml"
+  github {
+    owner = "israelmendez232"
+    name = "gcp-data-lake-analytics"
+    push {
+      branch = "^main$"
+    }
+  }
 }
