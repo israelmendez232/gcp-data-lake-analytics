@@ -37,8 +37,13 @@ docker run --env-file .env gcp-data-lake-analytics/etl:1.0
 ``` bash
 cd terraform/
 terraform init
+terraform validate
 terraform plan
 terraform apply
+```
+
+6. If you're testing the code, don't forget to destroy all services created:
+``` bash
 terraform destroy
 ```
 

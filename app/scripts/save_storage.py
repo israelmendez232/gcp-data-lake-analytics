@@ -100,7 +100,7 @@ def send_data(data, file_format: str, zone: str, table: str):
     bucket_name = os.environ['bucket_name']
     bucket = storage_client.bucket(bucket_name)
 
-    path_file = f"{zone}/{table}/pyear={year}/pmonth={month}/pday={day}/prefdate={refdate}/{file_name}"
+    path_file = f"{zone}/{table}/year={year}/month={month}/day={day}/refdate={refdate}/{file_name}"
     file_storage = bucket.blob(path_file)
     file_storage.upload_from_filename(file_path_tmp)
 

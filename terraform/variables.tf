@@ -40,3 +40,8 @@ variable "project_name" {
   description = "Name of the project."
   type        = string
 }
+
+variable "project_prefix" {
+  description = "Prefix of the project that will affect the naming of the services."
+  type        = string
+}

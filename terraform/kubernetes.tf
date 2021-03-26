@@ -4,7 +4,7 @@ resource "google_service_account" "default" {
 }
 
 resource "google_container_cluster" "primary" {
-  name     = "gcp-data-lake-analytics-etl"
+  name     = "${var.project_prefix}-etl-1"
   location = var.region
   node_config {
     service_account = var.email_admin

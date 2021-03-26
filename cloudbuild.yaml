@@ -2,6 +2,13 @@ steps:
   # build the container image
 - name: "gcr.io/cloud-builders/docker"
   args: ["build", "-t", "gcr.io/gcp-data-lake-analytics/etl:1.0", "."]
+  env:
+    - 'GOOGLE_APPLICATION_CREDENTIALS=/scripts/auth/gcp-auth.json'
+    - 'url_api=https://api-pub.bitfinex.com/v2'
+    - 'timeframe=5m'
+    - 'bucket_name=gcp-data-lake-analytics-dev-132c6d70b4a8'
+    - 'limit=10000'
+    - 'KUBECONFIG=application.yaml'
   # push container image
 - name: "gcr.io/cloud-builders/docker"
   args: ["push", "gcr.io/gcp-data-lake-analytics/etl:1.0"]
@@ -12,4 +19,4 @@ steps:
   - --filename=app/aplication.yaml
   - --image=gcr.io/gcp-data-lake-analytics/etl:1.0
   - --location="europe-west3"
-  - --cluster=autopilot-cluster-1
+  - --cluster=gcp-data-lake-analytics-etl-1
