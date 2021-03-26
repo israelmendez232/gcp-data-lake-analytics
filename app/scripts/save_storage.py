@@ -15,9 +15,9 @@ def save_files_tmp(data, file_format: str, file_name: str):
     data
         The information to be saved on the storage.
     file_format : str
-        The type of the format that will define the process for saving and/or encoding. Such as `parquet` or `json`.
+        The type of format that will define the process for saving and/or encoding. Such as `parquet` or `json`.
     zone : str
-        The zone that will be saved the data, such as `raw`, `trusted` and `analytics`.
+        The zone that will be saved the data, such as `raw`, `trusted`, and `analytics`.
     """
     
     if file_format == 'parquet':
@@ -38,7 +38,7 @@ def delete_files_tmp():
     """
     # DELETE FILES ON TEMPORARY
 
-    Delete files in tmp folder to avoid unnecessary files locally.
+    Delete files in the tmp folder to avoid unnecessary files locally.
     """
 
     files = glob.glob('./tmp/*')
@@ -49,18 +49,18 @@ def add_tables_data_warehouse(table_name: str, zone: str):
     """
     # ADD TABLES ON DATA WAREHOUSE
 
-    Main function to save the data into the storage and create table into data warehouse.
+    The main function to save the data into the storage and create a table in the data warehouse.
 
     Parameters
     ----------
     data
         The information to be saved on the storage.
     file_format : str
-        The type of the format that will define the process for saving and/or encoding. Such as `parquet` or `json`.
+        The type of format that will define the process for saving and/or encoding. Such as `parquet` or `json`.
     zone : str
-        The zone that will be saved the data, such as `raw`, `trusted` and `analytics`.
+        The zone that will be saved the data, such as `raw`, `trusted`, and `analytics`.
     table : str
-        The table name that will be used to save into the storage and data warehouse.
+        The table name will be used to save into the storage and data warehouse.
     """
     return 1
 
@@ -68,18 +68,18 @@ def send_data(data, file_format: str, zone: str, table: str):
     """
     # SEND DATA TO STORAGE
 
-    Main function to save the data into the storage and create table into data warehouse.
+    The main function to save the data into the storage and create a table in the data warehouse.
 
     Parameters
     ----------
     data
         The information to be saved on the storage.
     file_format : str
-        The type of the format that will define the process for saving and/or encoding. Such as `parquet` or `json`.
+        The type of format that will define the process for saving and/or encoding. Such as `parquet` or `json`.
     zone : str
-        The zone that will be saved the data, such as `raw`, `trusted` and `analytics`.
+        The zone that will be saved the data, such as `raw`, `trusted`, and `analytics`.
     table : str
-        The table name that will be used to save into the storage and data warehouse.
+        The table name will be used to save into the storage and data warehouse.
     """
 
     # Setting the partitions

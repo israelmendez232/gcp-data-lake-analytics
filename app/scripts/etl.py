@@ -13,7 +13,7 @@ def raw_zone(timeframe: str = "5m", pair: str, table_name: str):
     """
     # RAW ZONE
 
-    Collect data from the Crypto API and send to `raw` schema/dataset.
+    Collect data from the Crypto API and send it to the `raw` schema/dataset.
 
     Parameters
     ----------
@@ -22,12 +22,12 @@ def raw_zone(timeframe: str = "5m", pair: str, table_name: str):
     pair : str
         The pair to collect the pricing and data, such as `BTCUSD`, `ETHUSD` and others.
     table_name : str
-        The table name that will be used to save into the storage and data warehouse.
+        The table name will be used to save into the storage and data warehouse.
 
     Returns
     -------
     response : json
-        Return the json file, as response from the API request.
+        Return the JSON file, a response from the API request.
     """
 
     url = os.environ['url_api']
@@ -47,19 +47,19 @@ def trusted_zone(response: json, table_name: str):
     """
     # TRUSTED ZONE
 
-    Transform the json data into a tabular format for the `trusted` schema/dataset.
+    Transform the JSON data into a tabular format for the `trusted` schema/dataset.
 
     Parameters
     ----------
     response : json
         The response from the API request.
     table_name : str
-        The table name that will be used to save into the storage and data warehouse.
+        The table name will be used to save into the storage and data warehouse.
 
     Returns
     -------
     df : pd.DataFrame
-        Return the dataframe as tabular format from the json file.
+        Return the dataframe as the tabular format from the JSON file.
     """
 
     df = pd.DataFrame.from_dict(response)
@@ -81,9 +81,9 @@ def analytics_zone(df: pd.DataFrame, table_name: str):
     Parameters
     ----------
     df : pd.DataFrame
-        The tabular format transformed in `trusted_zone`.
+        The tabular format transformed into `trusted_zone`.
     table_name : str
-        The table name that will be used to save into the storage and data warehouse.
+        The table name will be used to save into the storage and data warehouse.
     """
 
     df['result'] = df['close'] - df['open']

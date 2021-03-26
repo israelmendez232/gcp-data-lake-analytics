@@ -1,5 +1,5 @@
 variable "id" {
-  description = "Generate a random UUID id to adjust the services names."
+  description = "Generate a random UUID id to adjust the names of the services."
   type        = string
   default     = "132c6d70b4a8" # DEV Env
 }
@@ -22,7 +22,7 @@ variable "environment" {
 }
 
 variable "email_admin" {
-  description = "Email for 'admin' role, on BigQuery and others services."
+  description = "Email for 'admin' role, on BigQuery and other services."
   type        = string
 }
 
@@ -42,6 +42,6 @@ variable "project_name" {
 }
 
 variable "project_prefix" {
-  description = "Prefix of the project that will affect the naming of the services."
+  description = "A prefix of the project that will affect the naming of the services."
   type        = string
 }
