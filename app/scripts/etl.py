@@ -9,7 +9,7 @@ from ta import add_all_ta_features
 from save_storage import send_data
 from coins import pairs
 
-def raw_zone(timeframe: str = "5m", pair: str, table_name: str): 
+def raw_zone(timeframe: str, pair: str, table_name: str): 
     """
     # RAW ZONE
 
