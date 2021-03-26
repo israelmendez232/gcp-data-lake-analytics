@@ -38,7 +38,6 @@ docker run --env-file .env gcp-data-lake-analytics/etl:1.0
 cd terraform/
 terraform init
 terraform validate
-terraform plan
 terraform apply
 ```
 
@@ -48,13 +47,13 @@ terraform destroy
 ```
 
 ## 2. Main Architecture
-Here is the diagram to visualize:
+Here is the diagram to visualize: <br>
 ![Main Architecture](images/main_architecture.png)
 
 The stack:
-1. **Public API:** collect data using a financial API, because the frequency of the data to be quite high in this market. Especially on crypto. Also chose the [Bitfinex API v2](https://docs.bitfinex.com/docs/introduction) because they have good documentation and to collect the main data doesn't need to be authenticated;
-2. **ETL:** decided to use Python with [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine?hl=pt-br) to store the code;
-3. **Data Lake:** using [Cloud Storage](https://cloud.google.com/storage?hl=pt-br) to save encoded [.parquet](https://cloud.google.com/bigquery/docs/loading-data-cloud-storage-parquet?hl=pt-br#:~:text=Parquet%20%C3%A9%20um%20formato%20de,%2C%20bem%20como%20substitu%C3%AD%2Dlas.) files as structured data;
+1. **Public API:** collect data using a financial API, because the frequency of the data to be quite high in this market. Especially on crypto. Also chose the [Bitfinex API v2](https://docs.bitfinex.com/docs/introduction) because they offer good documentation and to use it to collect the historical data doesn't need to be authenticated;
+2. **ETL:** decided to use [Python](https://www.python.org/) with [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine?hl=pt-br) to store the code;
+3. **Data Lake:** using [Cloud Storage](https://cloud.google.com/storage?hl=pt-br) to save all files incoming and final formats on encoded [.parquet](https://cloud.google.com/bigquery/docs/loading-data-cloud-storage-parquet?hl=pt-br#:~:text=Parquet%20%C3%A9%20um%20formato%20de,%2C%20bem%20como%20substitu%C3%AD%2Dlas.) as structured data;
 4.  **CI/CD:** to use GitHub to store the code and modifications, such as the documentation on this README. And use [Cloud Build](https://cloud.google.com/build?hl=pt-br) to connect to the repository and update the GKE environment;
 5.  **Data Warehouse:** read the data transformed from [Cloud Storage](https://cloud.google.com/storage?hl=pt-br) from [BigQuery](https://cloud.google.com/bigquery?hl=pt-br);
 6.  **Infrastructure as Code:** decided to manage and script all infrastructure using [Terraform](https://www.terraform.io/).
@@ -73,11 +72,11 @@ The code runs each 5 minutes, to extract the data and make the transformations.
 
 ### 3.2 Data Lake
 The objective here is to divide the data lake into zones to avoid repeating code and provide a better environment for data quality. 
-1. **Raw:** Receive the raw data, such as .json or .csv - No transformation and neither a partition now
-1. **Trusted:** Retrieve the data in raw, transform in a structured format, and encoded in .parquet - Partition by date
+1. **Raw:** Receive the raw data, such as .json or .csv - No transformation and neither a partition now.
+1. **Trusted:** Retrieve the data in raw, transform in a structured format, and encoded in .parquet - Partition by date.
 1. **Analytics:** Get the data in trusted, run all the complex aggregations and main tables, without the need for partitioning, for consumption of the final user. In analytics, we will have more complex calculations such as data marts and OLAPs cubes.
 
-Here is a table to explain better:
+Here is a table to be more clear:
 | **Zones** | **File**          | **Partition** | **Source**            |
 |-----------|-------------------|---------------|-----------------------|
 | Raw       | .json/.csv/others | No            | System of Record      |
@@ -85,7 +84,7 @@ Here is a table to explain better:
 | Analytics | .parquet          | No            | Trusted + Custom Code |
 
 ### 3.3 Data Warehouse
-To consume data, BigQuery will provide visualization for `trusted` and `analytics`. Reading directly from [Cloud Storage](https://cloud.google.com/storage?hl=pt-br). The objective is to break by these types of access to manage:
+To consume data, BigQuery will provide visualization for `raw` (if there is a tabular format of raw data), `trusted`, and `analytics`. Reading directly from [Cloud Storage](https://cloud.google.com/storage?hl=pt-br). The objective is to break by these types of access to manage:
 | **Type of User** | **Example**                      | **Raw (Cloud Storage)** | **Trusted (BigQuery)** | **Analytics (BigQuery)** |
 |------------------|----------------------------------|-------------------------|------------------------|--------------------------|
 | Essential        | Marketing, Product               | No                      | No                     | Yes                      |
